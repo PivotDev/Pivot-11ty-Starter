@@ -1,10 +1,11 @@
 const path = require('path')
 const pluginRss = require("@11ty/eleventy-plugin-rss"); // needed for absoluteUrl SEO feature
 const eleventyNavigationPlugin = require("@11ty/eleventy-navigation");
-const EleventyVitePlugin = require("@11ty/eleventy-plugin-vite");
-const Image = require("@11ty/eleventy-img");
+const EleventyVitePlugin = require("./plugins/custom-vite-plugin"); // CUSTOM VERSION 
+const { eleventyImageTransformPlugin } = require("@11ty/eleventy-img");
 const yaml = require("js-yaml"); // Because yaml is nicer than json for editors
 require('dotenv').config();
+
 
 const baseUrl = process.env.BASE_URL || "http://localhost:8080";
 console.log('baseUrl is set to ...', baseUrl);
@@ -41,35 +42,32 @@ module.exports = function(eleventyConfig) {
 
   /* --- SHORTCODES --- */
 
-  // Image shortcode config
-  let defaultSizesConfig = "(min-width: 1200px) 1400px, 100vw"; // above 1200px use a 1400px image at least, below just use 100vw sized image
-
-  eleventyConfig.addShortcode("image", async function(src, alt, sizes=defaultSizesConfig) {
-		console.log(`Generating image(s) from:  ${src}`)
-    let metadata = await Image(src, {
-			widths: [800, 1500],
-			formats: ["webp", "jpeg"],
-      urlPath: "/images/",
-			outputDir: "./_site/images/",
-			filenameFormat: function (id, src, width, format, options) {
-				const extension = path.extname(src)
-				const name = path.basename(src, extension)
-				return `${name}-${width}w.${format}`
-			}
-		});
-
-		let imageAttributes = {
-			alt,
-			sizes,
-			loading: "lazy",
-			decoding: "async",
-		};
-
-		return Image.generateHTML(metadata, imageAttributes);
-	});
-
   // Output year for copyright notices
   eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
+
+
+  /* --- RESPONSIVE IMAGES --- */
+
+  eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
+		// which file extensions to process
+		extensions: "html",
+
+		// Add any other Image utility options here:
+
+		// optional, output image formats
+		formats: ["webp", "jpeg"],
+		// formats: ["auto"],
+
+		// optional, output image widths
+		// widths: ["auto"],
+
+		// optional, attributes assigned on <img> override these values.
+		defaultAttributes: {
+			loading: "lazy",
+			decoding: "async",
+		},
+	});
+
 
 
   /* --- FILTERS --- */
