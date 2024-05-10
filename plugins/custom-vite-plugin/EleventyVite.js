@@ -9,7 +9,8 @@ const DEFAULT_OPTIONS = {
     resolve:{
       alias:{
         // Allow references to `node_modules` directly for bundling.
-        '/node_modules': path.resolve(".", 'node_modules')
+        '/node_modules': path.resolve(".", '../../node_modules'),
+        '~bootstrap': path.resolve(__dirname, '../../node_modules/bootstrap'),
         // Note that bare module specifiers are also supported
       },
     },
