@@ -6,8 +6,8 @@
     <title>{{ site.title }} - {{ title or meta.title }}</title>
     {% include "meta.njk" %}
 
+    <script src="https://kit.fontawesome.com/6c14141002.js" crossorigin="anonymous"></script>
 
-<script src="https://kit.fontawesome.com/6c14141002.js" crossorigin="anonymous"></script>
     <noscript>
       <style>
         .gsap-cloak {
@@ -21,13 +21,20 @@
 
     {% include "header.njk" %}
 
-    <main id="main">
+    <div class="pd_ss_wrapper">
+
+      <div class="pd_ss_inner">
+
+        <main id="main" class="">
       
-        {{ content | safe }}
+          {{ content | safe }}
+  
+        </main>
 
-    </main>
+        {% include "footer.njk" %}
 
-    {% include "footer.njk" %}
+      </div>
+    </div>
 
     <script type="module" src="{{ '/assets/js/index.js' | url }}"></script>
     

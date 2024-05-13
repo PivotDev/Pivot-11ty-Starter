@@ -8,21 +8,10 @@ eleventyNavigation:
   order: 1
 ---
 
-{# <section class="font-bold">
-
-  <h1 class="text-2xl text-center mb-8">Welcome</h1>
-  <p class="text-center mb-8">Test Alpine.js Interactivity below:</p>
-
-  <div x-data="{ count: 0 }" class="flex flex-col justify-center items-center">
-    <span x-text="count" class="text-3xl px-8 py-4 bg-gray-200  mb-2"></span>
-    <button class="bg-slate-500 text-white py-1 px-4 rounded-sm hover:bg-slate-600" x-on:click="count++">Increment</button>
-  </div>
-
-</section> #}
 
 
 <!-- Header-->
-<header class="bg-primary bg-gradient text-white py-5">
+<header class="bg-primary bg-gradient text-white ">
   <div class="container text-center">
     <h1 class="fw-bolder">Welcome to Scrolling Nav</h1>
     <p class="lead">A functional Bootstrap 5 boilerplate for one page scrolling websites</p>
@@ -31,7 +20,7 @@ eleventyNavigation:
 </header>
 
 <!-- About section-->
-<section id="about" class="py-5">
+<section id="about" class="">
   <div class="container">
     <div class="row gx-4 justify-content-center">
       <div class="col-lg-8">
@@ -51,8 +40,11 @@ eleventyNavigation:
     </div>
   </div>
 </section>
-<!-- Services section-->
-<section class="bg-light py-5" id="services">
+
+
+
+<!-- Services section -->
+<section class="bg-light" id="services">
   <div class="container">
     <div class="row gx-4 justify-content-center">
       <div class="col-lg-8">
@@ -62,8 +54,25 @@ eleventyNavigation:
     </div>
   </div>
 </section>
+
+{# Alpine section #}
+<section>
+  <div class="container">
+    
+      <h1 class="text-2xl text-center mb-8">Built with Alpine.js Included</h1>
+      <p class="text-center mb-8">Test Interactivity below:</p>
+    
+      <div x-data="{ count: 0 }" class="d-flex flex-column justify-content-center align-items-center">
+        <span x-text="count" class="px-8 py-4 mb-2"></span>
+        <button class="btn btn-primary" x-on:click="count++">Increment</button>
+      </div>
+    
+  </div>
+</section>
+
+
 <!-- Contact section-->
-<section id="contact" class="py-5">
+<section id="contact" class="bg-light">
   <div class="container">
     <div class="row gx-4 justify-content-center">
       <div class="col-lg-8">

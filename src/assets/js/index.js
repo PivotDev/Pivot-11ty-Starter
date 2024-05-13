@@ -6,6 +6,9 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 
+import { utils } from './modules/utils';
+
+
 import Alpine from 'alpinejs'
  
 window.Alpine = Alpine
@@ -23,11 +26,34 @@ window.ScrollSmoother = ScrollSmoother;
 gsap.registerPlugin(ScrollSmoother);
 gsap.registerPlugin(ScrollTrigger);
 
+
+const {select} = utils
+
 document.addEventListener("DOMContentLoaded", function(){
 
+  var smoother = ScrollSmoother.create({
+    wrapper: ".pd_ss_wrapper",
+    content: ".pd_ss_inner",
+    smooth: 1,
+    effects: true,
+    ignoreMobileResize: true,
+    normalizeScroll: false,
+    smoothTouch: false
+    // preventDefault: true
+  });
 
-  function handleInnerPageHeader(){
-    const siteHeader = document.querySelector('#mainNav');
+  window.pd_smoother = smoother
+
+  select('.navbar-collapse').addEventListener('hide.bs.collapse', function(){
+    select('body').classList.remove('mobile-nav-open')
+  })
+  select('.navbar-collapse').addEventListener('show.bs.collapse', function(){
+    select('body').classList.add('mobile-nav-open')
+  })
+
+
+  function handlePageHeader(){
+    const siteHeader = document.querySelector('#site-header');
     let header_progress = 0;
     let header_direction = 1;
     ScrollTrigger.create({
@@ -57,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function(){
     });
   }
 
-  //handleInnerPageHeader();
+  handlePageHeader();
 
   console.log('hello from index.js')
 
