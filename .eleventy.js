@@ -1,7 +1,8 @@
 const path = require('path')
 const pluginRss = require("@11ty/eleventy-plugin-rss"); // needed for absoluteUrl SEO feature
 const eleventyNavigationPlugin = require("@11ty/eleventy-navigation");
-const EleventyVitePlugin = require("./plugins/custom-vite-plugin"); // CUSTOM VERSION 
+// const EleventyVitePlugin = require("./plugins/custom-vite-plugin"); // CUSTOM VERSION 
+const EleventyVitePlugin = require("@11ty/eleventy-plugin-vite");
 const { eleventyImageTransformPlugin } = require("@11ty/eleventy-img");
 const yaml = require("js-yaml"); // Because yaml is nicer than json for editors
 require('dotenv').config();
@@ -38,7 +39,18 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addPlugin(pluginRss); // just includes absolute url helper function
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
-  eleventyConfig.addPlugin(EleventyVitePlugin, {});
+  eleventyConfig.addPlugin(EleventyVitePlugin, {
+    viteOptions: {
+      resolve:{
+        alias:{
+          // Allow references to `node_modules` directly for bundling.
+          '/node_modules': path.resolve(".", '/node_modules'),
+          '~bootstrap': path.resolve(__dirname, './node_modules/bootstrap'),
+          // Note that bare module specifiers are also supported
+        },
+      },
+    }
+  });
 
   /* --- SHORTCODES --- */
 
@@ -82,8 +94,8 @@ module.exports = function(eleventyConfig) {
 
   return {
     dir: {
-      input: "src",
-      output: "_site",
+      input: "./src",
+      output: "./_site",
       includes: "includes", // this path is releative to input-path (src/)
       layouts: "layouts", // this path is releative to input-path (src/)
       data: "data", // this path is releative to input-path (src/)

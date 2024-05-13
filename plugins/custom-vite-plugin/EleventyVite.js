@@ -61,7 +61,7 @@ class EleventyVite {
         .filter(entry => (entry.outputPath || "").endsWith(".html")) // only html output
         .map(entry => {
           // Get rid of "./" to make sure it matches
-          entry.outputPath = entry.outputPath.replace(/^\.\//, '')
+          // entry.outputPath = entry.outputPath.replace(/^\.\//, '')
           if(!entry.outputPath.startsWith(this.outputDir + path.sep)) {
             throw new Error(`Unexpected output path (was not in output directory ${this.outputDir}): ${entry.outputPath}`);
           }
