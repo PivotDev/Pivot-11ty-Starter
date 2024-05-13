@@ -13,21 +13,23 @@ meta:
 ---
 
 <section class="font-bold">
-  <h1 class="text-center mb-8">All Articles</h1>
-  <ul>
-    {% for post in posts %}
-      <li class="">
-        <a class="block text-center rounded-md w-full bg-gray-200 py-4 mb-2 hover:bg-gray-300" href="{{post.url}}">{{ post.data.title }}</a>
-      </li>
-    {% endfor %}
-  </ul>
+  <div class="container">
+    <h1 class="text-center mb-4">All Articles</h1>
+    <ul class="list-unstyled">
+      {% for post in posts %}
+        <li class="article">
+          <a class="" href="{{post.url}}">{{ post.data.title }}</a>
+        </li>
+      {% endfor %}
+    </ul>
 
-  <div class="w-full flex justify-center gap-4 py-4">
-    {% if pagination.href.previous %}
-      <a href="{{pagination.href.previous}}">Previous Page</a>
-    {% endif %}
-    {% if pagination.href.next %}
-      <a href="{{pagination.href.next}}">Next Page</a>
-    {% endif %}
+    <div class="w-100 d-flex justify-content-center gap-4 py-4">
+      {% if pagination.href.previous %}
+        <a href="{{pagination.href.previous}}">Previous Page</a>
+      {% endif %}
+      {% if pagination.href.next %}
+        <a href="{{pagination.href.next}}">Next Page</a>
+      {% endif %}
+    </div>
   </div>
 </section>

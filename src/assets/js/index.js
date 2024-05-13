@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function(){
     });
   }
 
-  handleInnerPageHeader();
+  //handleInnerPageHeader();
 
   console.log('hello from index.js')
 

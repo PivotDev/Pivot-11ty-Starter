@@ -1,5 +1,5 @@
 ---
-layout: base
+layout: post-layout
 title: My First Post
 tags: post
 ---
