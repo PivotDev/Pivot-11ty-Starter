@@ -41,6 +41,9 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
   eleventyConfig.addPlugin(EleventyVitePlugin, {
     viteOptions: {
+      build: {
+        copyPublicDir: true
+      },
       resolve:{
         alias:{
           // Allow references to `node_modules` directly for bundling.
