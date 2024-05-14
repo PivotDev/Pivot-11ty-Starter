@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 
 import { utils } from './modules/utils';
+import './modules/theme-toggle';
 
 
 import Alpine from 'alpinejs'
