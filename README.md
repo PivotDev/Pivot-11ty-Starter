@@ -4,6 +4,7 @@ A static site generation starter built with 11ty and Bootstrap 5.
 
 ### Built in settings and features
 
+ - Dynamic shortcode imports to allow for quick component builds
  - Navigation plugin with data file for configuring html
  - SEO optimized meta include file with multiple fallbacks
  - Image plugin for performance
