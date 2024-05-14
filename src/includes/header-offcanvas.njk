@@ -1,13 +1,26 @@
 
 {% set navPages = collections.all | eleventyNavigation %}
 
-<header id="site-header" class="site-header">
-  <nav class="navbar navbar-expand-lg bg-primary" id="mainNav" data-bs-theme="dark">
-    <div class="container">
-      <a class="navbar-brand" href="/">Start Bootstrap</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa-solid fa-bars"></i></button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ms-auto">
+<header class="navbar navbar-expand-lg bd-navbar sticky-top navbar-dark bg-primary" id="mainNav" data-bs-theme="dark">
+  <nav class="container-xxl bd-gutter flex-wrap flex-lg-nowrap" aria-label="Main navigation">
+    <a class="navbar-brand p-0 me-0 me-lg-2" href="/" aria-label="Bootstrap">
+      Start Bootstrap
+    </a>
+    <div class="bd-navbar-toggle">
+      <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+    <div class="offcanvas-lg offcanvas-end flex-grow-1" tabindex="-1" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel" data-bs-scroll="true">
+      <div class="offcanvas-header px-4 pb-0">
+        <h5 class="offcanvas-title text-white" id="bdNavbarOffcanvasLabel">Start Bootstrap</h5>
+        <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdNavbar"></button>
+      </div>
+
+      <div class="offcanvas-body p-4 pt-0 p-lg-0">
+        <hr class="d-lg-none text-white-50">
+
+        <ul class="navbar-nav ms-md-auto">
 
           {% for page in navPages %}
       
@@ -27,8 +40,7 @@
             <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
             <hr class="d-lg-none my-2 text-white-50">
           </li>
-
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown pb-3 pb-lg-0">
             <button class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme (auto)">
               <i class="fa-solid fa-circle-half-stroke my-1 theme-icon-active"></i>
               <span class="d-lg-none ms-2" id="bd-theme-text">Toggle theme</span>
@@ -57,9 +69,13 @@
               </li>
             </ul>
           </li>
-      
         </ul>
-
+        <!-- Long page smooth scrolling example -->
+        <!-- <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul> -->
       </div>
     </div>
   </nav>
