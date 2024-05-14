@@ -1,10 +1,14 @@
 const path = require('path')
 const pluginRss = require("@11ty/eleventy-plugin-rss"); // needed for absoluteUrl SEO feature
 const eleventyNavigationPlugin = require("@11ty/eleventy-navigation");
-// const EleventyVitePlugin = require("./plugins/custom-vite-plugin"); // CUSTOM VERSION 
+// const EleventyVitePlugin = require("./config/custom-vite-plugin"); // CUSTOM VERSION 
 const EleventyVitePlugin = require("@11ty/eleventy-plugin-vite");
 const { eleventyImageTransformPlugin } = require("@11ty/eleventy-img");
 const yaml = require("js-yaml"); // Because yaml is nicer than json for editors
+
+// SHORTCODES
+const accordionItem = require("./config/shortcodes/accordionItem");
+
 require('dotenv').config();
 
 
@@ -59,6 +63,9 @@ module.exports = function(eleventyConfig) {
 
   // Output year for copyright notices
   eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
+
+  // Imported shortcodes
+  accordionItem(eleventyConfig)
 
 
   /* --- RESPONSIVE IMAGES --- */
