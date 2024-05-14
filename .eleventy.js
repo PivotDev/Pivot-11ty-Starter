@@ -1,4 +1,6 @@
+const fs = require('fs');
 const path = require('path')
+
 const pluginRss = require("@11ty/eleventy-plugin-rss"); // needed for absoluteUrl SEO feature
 const eleventyNavigationPlugin = require("@11ty/eleventy-navigation");
 // const EleventyVitePlugin = require("./config/custom-vite-plugin"); // CUSTOM VERSION 
@@ -6,12 +8,9 @@ const EleventyVitePlugin = require("@11ty/eleventy-plugin-vite");
 const { eleventyImageTransformPlugin } = require("@11ty/eleventy-img");
 const yaml = require("js-yaml"); // Because yaml is nicer than json for editors
 
-// SHORTCODES
-const accordionItem = require("./config/shortcodes/accordionItem");
-
 require('dotenv').config();
 
-
+// Set up our globals
 const baseUrl = process.env.BASE_URL || "http://localhost:8080";
 console.log('baseUrl is set to ...', baseUrl);
 
@@ -21,6 +20,18 @@ const globalSiteData = {
   locale: 'en',
   baseUrl: baseUrl,
 }
+
+// Dynamically find all shortcodes
+const shortcodesPath = path.resolve(__dirname, './config/shortcodes');
+const shortcodeFiles = fs.readdirSync(shortcodesPath, (err, files) => {
+  if (err) {
+    console.error('Error reading directory:', err);
+    return;
+  } else {
+    return files
+  }
+})
+
 
 module.exports = function(eleventyConfig) {
 
@@ -65,8 +76,22 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
 
   // Imported shortcodes
-  accordionItem(eleventyConfig)
-
+  shortcodeFiles.forEach(file => {
+    // Check if file has .js extension
+    if (path.extname(file) === '.js') {
+      // Construct the module path
+      const modulePath = path.join(shortcodesPath, file);
+      
+      // Dynamically require the module
+      const module = require(modulePath);
+      
+      // Check if the module exports a function with the same name
+      if (typeof module === 'function') {
+        // Call the function
+        module(eleventyConfig);
+      }
+    }
+  });
 
   /* --- RESPONSIVE IMAGES --- */
 

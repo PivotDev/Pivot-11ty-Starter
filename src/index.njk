@@ -37,7 +37,7 @@ eleventyNavigation:
       <div class="col-lg-4 m-auto">
         {# <img src="/assets/images/image.png" class="img-fluid" alt=""> #}
         <h5>Use shortcodes for reusable components:</h5>
-        <div class="accordion">
+        {% accordion %}
           {% accordionItem heading="heading", id="1" %}
             this is some content
           {% endaccordionItem %}
@@ -50,7 +50,7 @@ eleventyNavigation:
           {% accordionItem heading="heading", id="4" %}
             this is some content
           {% endaccordionItem %}
-        </div>
+        {% endaccordion %}
       </div>
     </div>
   </div>
