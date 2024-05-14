@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "npx @11ty/eleventy --serve",
-    "dev": "npx @11ty/eleventy --serve",
+    "dev": "npx @11ty/eleventy --serve --incremental",
     "serve": "npx @11ty/eleventy --serve",
     "watch": "npx @11ty/eleventy --watch",
     "build": "npx @11ty/eleventy",
+    "build:fresh": "del-cli _site && npx @11ty/eleventy",
     "clean": "del-cli _site"
   },
   "keywords": [],
