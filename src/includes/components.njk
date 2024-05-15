@@ -1,0 +1,9 @@
+{%- macro component(name, params) -%}
+
+  {% if caller %}
+    {% set content = caller() %} 
+  {% endif %}
+
+
+  {%- include "./components/" + name + ".njk" ignore missing -%}
+{%- endmacro -%}
