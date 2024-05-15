@@ -15,23 +15,27 @@ When building with this starter you have two options for reusable components. Th
 
 ## Using Components
 
-Components should be stored within the `includes/components/` directory. There is a file called `components.njk` in the main includes directory that will autoload each of these and pass in the correct parameters.
+Components should be stored within the `includes/components/` directory. 
 
-Components use the underlying "Macro" functionality of Nunjucks, which lets you scope variables to the component itself.
+There is also a file called `components.njk` one level up in the includes directory. This file allows you to autoload all your components rather than manually importing each, and wraps each component in the required `{% macro %}` tags behind the scenes, so you can focus on markup.
 
-Components will be passed a `params` object that contains any options you choose to pass. Creating a simple button component would look like this:
+Components can be passed a `params` object with any values you wish to make dynamic. Creating a simple button component would look like this:
 
     <a class="btn btn-{{ params.style }}">{{ params.title }}</a>
 
-To use this component assuming it is at `includes/components/button.njk` in a template you would first add
+Let's assume we added this to a file located here: `includes/components/button.njk`. 
+
+To use in a template, we would first need to import the main component file anywhere in the template above where we want our button:
 
     {%- from "./includes/components.njk" import component -%}
 
-To the top of the template file to import the component loader. Then you could use the component like so:
+This gives you access to a `component` function that will load any component by name and pass in the parameters you provide.
+
+Once imported, you could use the button component like so:
 
     {{ component("button", {style:"primary", title: "test button"}) }}
 
-This is extremely useful for reusing components across a site with support for variants based on the data passed.
+The `component` function is nice because it allows you to have direct access to all your components without manually importing each one you may want to use.
 
 ### Components with children
 
@@ -49,9 +53,9 @@ Then update the structure of where you are calling the actual component (the imp
       button using inner content
     {% endcall%}
 
-This example is a bit contrived since this could easily have been pased through the "title" variable we used, but in between the call and endcall blocks you can add any HTML or Nunjucks code.
+This example is a bit contrived, since the button text could easily have been passed through the "title" variable we used previously. The power of this technique is that in between the `call` and `endcall` blocks you can add any HTML or Nunjucks code.
 
-This is very useful for components like accordions, modals, etc where the inner content may be quite complex.
+This is useful for components like accordions, modals, etc, where the inner content may be quite complex.
 
 ## Custom Shortcodes
 
