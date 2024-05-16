@@ -124,6 +124,18 @@ module.exports = function(eleventyConfig) {
     return prefix + "-" + Math.floor(Math.random() * 1000000);
   });
 
+  // Detect if a child link is active and output a class
+  eleventyConfig.addFilter("childLinkIsActive", function(array, value) {
+    // Check if the value exists in the array
+    let hasActiveChild = false
+    array.forEach(item => {
+      if(item.url === value){
+        hasActiveChild = true
+      }
+    })
+    return hasActiveChild ? "child-active" : "";
+  })
+
 
   /* --- BASE CONFIG --- */
 

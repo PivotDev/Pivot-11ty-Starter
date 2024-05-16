@@ -1,6 +1,4 @@
 
-{% set navPages = collections.all | eleventyNavigation %}
-
 <header class="navbar navbar-expand-lg bd-navbar sticky-top navbar-dark bg-primary" id="mainNav" data-bs-theme="dark">
   <nav class="container-xxl bd-gutter flex-wrap flex-lg-nowrap" aria-label="Main navigation">
     <a class="navbar-brand p-0 me-0 me-lg-2" href="/" aria-label="Bootstrap">Pivot 11ty Starter</a>
@@ -20,19 +18,7 @@
 
         <ul class="navbar-nav ms-md-auto">
 
-          {% for page in navPages %}
-      
-            <li class="nav-item">
-              <a 
-                class="nav-link {% if eleventyNavigation.key === page.key %}active{% endif %}" 
-                aria-current="{% if eleventyNavigation.key === page.key %}true{% else %}false{% endif %}" 
-                href="{{ page.url }}"
-              >
-                {{page.title}}
-              </a>
-            </li>
-      
-          {% endfor %}
+          {% include "nav-builder.njk" %}
 
           <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto">
             <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>

@@ -1,0 +1,30 @@
+{% set navPages = collections.all | eleventyNavigation %}
+
+{%- macro renderNavListItem(entry) -%}
+  <li class="nav-item {% if entry.children.length %}dropdown{% endif%}">
+    {%- if entry.children.length -%}
+      <a 
+        class="nav-link dropdown-toggle {% if entry.url == page.url %}active{% endif %} {{ entry.children | childLinkIsActive(page.url) }}"  
+        href="{{ entry.url }}" 
+        role="button" 
+        data-bs-toggle="dropdown" 
+        aria-expanded="false"
+      >
+        {{ entry.title }}
+      </a>
+      <ul class="dropdown-menu">
+        {%- for child in entry.children %}{{ renderNavListItem(child) }}{% endfor -%}
+      </ul>
+    {%- else -%}
+      <a 
+        class="nav-link {% if entry.url == page.url %}active{% endif %}" 
+        aria-current="{% if entry.url == page.url %}true{% else %}false{% endif %}" 
+        href="{{ entry.url }}"
+      >
+        {{ entry.title }}
+      </a>
+    {%- endif -%}
+  </li>
+{%- endmacro -%}
+
+{%- for entry in navPages -%}{{ renderNavListItem(entry) }}{%- endfor -%}
