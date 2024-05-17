@@ -1,21 +1,14 @@
-//
-// CSS antialiasing
-//
+
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-//
-// Bug fixes/overrides
-//
+
 html {
   scroll-padding-top: 3.5rem;
 }
 
-// body {
-//   padding-top: 2.5rem;
-// }
 
 header {
   padding-top: 9.5rem;
@@ -31,7 +24,7 @@ section {
 .article {
   width: 100%;
   border-radius: 16px;
-  background: $gray-300;
   padding: 2rem 3rem;
   margin-bottom: 20px;
+  @apply bg-base-200;
 }

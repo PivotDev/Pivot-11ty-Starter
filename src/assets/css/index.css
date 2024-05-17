@@ -1,34 +1,10 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 
-html {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@import './tailwind/base.css';
+@import './tailwind/components.css';
+@import './tailwind/utilities.css';
 
 
-html {
-  scroll-padding-top: 3.5rem;
-}
+@import './common/_global.css';
+@import './common/_header.css';
 
-
-
-header {
-  padding-top: 9.5rem;
-  padding-bottom: 6rem;
-}
-
-section {
-  padding-top: 9rem;
-  padding-bottom: 9rem;
-}
-
-
-.article {
-  width: 100%;
-  border-radius: 16px;
-  padding: 2rem 3rem;
-  margin-bottom: 20px;
-}
