@@ -1,5 +1,4 @@
-import '../css/index.scss';
-import * as bootstrap from 'bootstrap'
+import '../css/index.css';
 
 // GSAP
 import { gsap } from "gsap";
@@ -7,8 +6,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 
 import { utils } from './modules/utils';
-import './modules/theme-toggle';
-
 
 import Alpine from 'alpinejs'
  
@@ -45,12 +42,12 @@ document.addEventListener("DOMContentLoaded", function(){
 
   window.pd_smoother = smoother
 
-  select('.navbar-collapse').addEventListener('hide.bs.collapse', function(){
-    select('body').classList.remove('mobile-nav-open')
-  })
-  select('.navbar-collapse').addEventListener('show.bs.collapse', function(){
-    select('body').classList.add('mobile-nav-open')
-  })
+  // select('.navbar-collapse').addEventListener('hide.bs.collapse', function(){
+  //   select('body').classList.remove('mobile-nav-open')
+  // })
+  // select('.navbar-collapse').addEventListener('show.bs.collapse', function(){
+  //   select('body').classList.add('mobile-nav-open')
+  // })
 
 
   function handlePageHeader(){
