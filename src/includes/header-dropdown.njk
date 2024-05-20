@@ -1,14 +1,24 @@
 
-<header id="site-header" class="site-header bg-primary ">
+<header id="site-header" class="site-header" x-data="{menuOpen: false}">
   <nav class="navbar bg-primary-content" id="mainNav" >
 
       <div class="navbar-start">
         <a class="navbar-brand" href="/">Pivot 11ty Starter</a>
       </div>
-      <div class="navbar-end" id="navbarResponsive">
-        <ul class="menu menu-horizontal">
+      <div class="navbar-end gap-2" id="navbarResponsive">
+
+        <button class="block md:hidden" @click="menuOpen = !menuOpen" x-text="menuOpen ? 'Close' : 'Menu'">
+          Menu
+        </button>
+
+        <ul class="menu menu-horizontal hidden md:flex">
           {% include "nav-builder.njk" %}
         </ul>
+
+        <ul x-show="menuOpen" class="menu menu-vertical menu-mobile md:hidden bg-primary-content">
+          {% include "nav-builder.njk" %}
+        </ul>
+
 
         <label class="swap swap-rotate">
   
