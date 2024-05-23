@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path')
+const inspect = require("util").inspect;
 
 const pluginRss = require("@11ty/eleventy-plugin-rss"); // needed for absoluteUrl SEO feature
 const eleventyNavigationPlugin = require("@11ty/eleventy-navigation");
@@ -48,6 +49,7 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addPassthroughCopy('src/assets/css')
 	eleventyConfig.addPassthroughCopy('src/assets/js')
+  eleventyConfig.addPassthroughCopy('src/public')
 
 
   /* --- PLUGINS --- */
@@ -116,8 +118,23 @@ module.exports = function(eleventyConfig) {
 	});
 
 
+  /* --- CUSTOM COLLECTION CONFIGURATION --- */
+
+  // EXAMPLE ONLY
+	// eleventyConfig.addCollection("postCustomSort", function (collectionApi) {
+	// 	return collectionApi.getFilteredByTag("post").sort(function (a, b) {
+	// 		//return a.order - b.order; // sort by custom order key - ascending
+	// 		return b.order - a.order; // sort by custom order key - descending
+	// 		//return a.inputPath.localeCompare(b.inputPath); // sort by path - ascending
+	// 		//return b.inputPath.localeCompare(a.inputPath); // sort by path - descending
+	// 	});
+	// });
+
 
   /* --- FILTERS --- */
+
+  // Useful "debug" filter for dumping all variable data to screen
+  eleventyConfig.addFilter("debug", (content) => `<pre>${inspect(content)}</pre>`);
 
   // Custom Random Helper Filter (useful for ID attributes)
   eleventyConfig.addFilter("generateRandomIdString", function (prefix) {
