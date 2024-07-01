@@ -6,13 +6,18 @@
     <title>{{ site.title }} - {{ title or meta.title }}</title>
     {% include "meta.njk" %}
 
-    {% if noindex %}
-      <meta name="robots" content="noindex">
-    {% endif %}
-
     {% if site.buildMode == "production" %}
+      {# PRODUCTION #}
+
+      {% if noindex %}
+        <meta name="robots" content="noindex">
+      {% endif %}
 
     {% else %}
+      {# DEV / STAGING #}
+    
+      {# Always noindex on staging #}
+      <meta name="robots" content="noindex">
 
     {% endif %}
 
