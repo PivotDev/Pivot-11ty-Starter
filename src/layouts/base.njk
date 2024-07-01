@@ -6,7 +6,19 @@
     <title>{{ site.title }} - {{ title or meta.title }}</title>
     {% include "meta.njk" %}
 
-    <script src="https://kit.fontawesome.com/6c14141002.js" crossorigin="anonymous"></script>
+    {% if noindex %}
+      <meta name="robots" content="noindex">
+    {% endif %}
+
+    {% if site.buildMode == "production" %}
+
+    {% else %}
+
+    {% endif %}
+
+    <link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="/fontawesome/light.min.css">
 
     <noscript>
       <style>

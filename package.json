@@ -6,17 +6,18 @@
   "scripts": {
     "start": "npx @11ty/eleventy --serve",
     "dev": "npx @11ty/eleventy --serve --incremental",
+    "dev:prod": "BUILD_MODE=production npx @11ty/eleventy --serve --incremental",
     "serve": "npx @11ty/eleventy --serve",
     "watch": "npx @11ty/eleventy --watch",
     "build": "npx @11ty/eleventy",
-    "build:fresh": "del-cli _site && npx @11ty/eleventy",
+    "build:prod": " BUILD_MODE=production npx @11ty/eleventy",
     "clean": "del-cli _site"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@11ty/eleventy": "^3.0.0-alpha.10",
+    "@11ty/eleventy": "^3.0.0-alpha.14",
     "@11ty/eleventy-img": "^4.0.0",
     "@11ty/eleventy-navigation": "^0.3.5",
     "@11ty/eleventy-plugin-rss": "^1.2.0",

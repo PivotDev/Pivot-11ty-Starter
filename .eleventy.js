@@ -13,16 +13,25 @@ require('dotenv').config();
 
 // Set up our globals
 const baseUrl = process.env.BASE_URL || "http://localhost:8080";
-console.log('baseUrl is set to ...', baseUrl);
+console.log('-----')
+console.log(`BASE URL: ${baseUrl}`);
+console.log('-----')
+
+const buildMode = process.env.BUILD_MODE || "dev";
+console.log('-----')
+console.log(`BUILD MODE: ${buildMode}`)
+console.log('-----')
+
 
 const globalSiteData = {
   title: "11ty Starter Site",
   description: "This is a basic 11ty starter template with my most commonly used features and modern tooling",
   locale: 'en',
   baseUrl: baseUrl,
+  buildMode: buildMode
 }
 
-// Dynamically find all shortcodes
+// Dynamically find all shortcodes - disable if not using
 const shortcodesPath = path.resolve(__dirname, './config/shortcodes');
 const shortcodeFiles = fs.readdirSync(shortcodesPath, (err, files) => {
   if (err) {
@@ -66,6 +75,7 @@ module.exports = function(eleventyConfig) {
           // Allow references to `node_modules` directly for bundling.
           '/node_modules': path.resolve(".", '/node_modules'),
           '~bootstrap': path.resolve(__dirname, './node_modules/bootstrap'),
+          '~public': path.resolve(__dirname, './public'),
           // Note that bare module specifiers are also supported
         },
       },
@@ -77,7 +87,7 @@ module.exports = function(eleventyConfig) {
   // Output year for copyright notices
   eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
 
-  // Imported shortcodes
+  // Imported shortcodes - disable if not using
   shortcodeFiles.forEach(file => {
     // Check if file has .js extension
     if (path.extname(file) === '.js') {

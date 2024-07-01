@@ -36,6 +36,12 @@ const Utils = () => {
     };
   };
 
+  const isTouchDevice = () =>  {
+    return (('ontouchstart' in window) ||
+           (navigator.maxTouchPoints > 0) ||
+           (navigator.msMaxTouchPoints > 0));
+  } 
+
 
   return {
     enableScroll,
@@ -43,7 +49,8 @@ const Utils = () => {
     debounce,
     select,
     selectAll,
-    selectForEach
+    selectForEach,
+    isTouchDevice
   }
 }
 

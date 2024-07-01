@@ -32,18 +32,50 @@ const {select} = utils
 
 document.addEventListener("DOMContentLoaded", function(){
 
-  var smoother = ScrollSmoother.create({
-    wrapper: ".pd_ss_wrapper",
-    content: ".pd_ss_inner",
-    smooth: 1,
-    effects: true,
-    ignoreMobileResize: true,
-    normalizeScroll: false,
-    smoothTouch: false
-    // preventDefault: true
-  });
+  if (!utils.isTouchDevice()) {
+    var smoother = ScrollSmoother.create({
+      wrapper: ".pd_ss_wrapper",
+      content: ".pd_ss_inner",
+      smooth: 1,
+      effects: true,
+      ignoreMobileResize: true,
+      normalizeScroll: false,
+      smoothTouch: false
+      // preventDefault: true
+    });
 
-  window.pd_smoother = smoother
+    window.pd_smoother = smoother
+
+
+    // Function to scroll to target with offset
+    function scrollToTarget(target) {
+      if (target) {
+        let scrollTarget = target.getBoundingClientRect().top + window.scrollY;
+        scrollTarget += 6 // add a couple px for good measure
+  
+  
+        scrollTarget -= 75
+  
+  
+        smoother.scrollTo(scrollTarget, { duration: 1, ease: 'power2.inOut' });
+      }
+    }
+  
+    // Click event listener for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (this.getAttribute('href') !== "#") {
+          const target = document.querySelector(this.getAttribute('href'));
+          scrollToTarget(target);
+          history.replaceState(null, null, `#${target.getAttribute('id')}`);
+        }
+      });
+    });
+
+  } else {
+
+  }
 
   select('.navbar-collapse').addEventListener('hide.bs.collapse', function(){
     select('body').classList.remove('mobile-nav-open')
