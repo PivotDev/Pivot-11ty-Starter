@@ -1,17 +1,14 @@
-# 11ty Pivot Starter
+# 11ty Pivot 
 
-A static site generation starter built with 11ty and Bootstrap 5.
+Static site generation with Bootstrap 5 and Vite.js
 
 ## Built in settings and features
 
- - Dynamic shortcode imports
  - Dynamic component imports
  - Navigation plugin with data file for configuring html
  - SEO optimized meta include file with multiple fallbacks
  - Image plugin for performance
  - Sitemap generation
-
-When building with this starter you have two options for reusable components. The tradeoffs and how to use each are found below:
 
 ## Using Components
 
@@ -29,7 +26,7 @@ To use in a template, we would first need to import the main component file anyw
 
     {%- from "./includes/components.njk" import component -%}
 
-This gives you access to a `component` function that will load any component by name and pass in the parameters you provide.
+This is usually added at the top of any template file and gives you access to a `component` function that will load any component by name and pass in the parameters you provide.
 
 Once imported, you could use the button component like so:
 
@@ -57,17 +54,41 @@ This example is a bit contrived, since the button text could easily have been pa
 
 This is useful for components like accordions, modals, etc, where the inner content may be quite complex.
 
-## Custom Shortcodes
+### What about normal includes?
 
-This section is a work in progress... More info coming soon.
+Components are used for pieces of code that will be shared across the site, but with varying attributes.
+
+Includes are still used when appropriate for shared sections that don't benefit as much from the ability to explicitly pass params and child content.
     
+## Styles and organization
 
-## Important note:
+All scss/js is found under the assets folder and gets compiled by Vite.
 
-Currently the vite plugin has a bug with the 3.0.0 canary of 11ty. We have a custom modified version at `plugins/custom-vite-plugin`. When installing and running the site, be sure to navigate to this directory and run `npm install` as well to get the plugin dependencies.
+Styles are organized in a way that closely lines up with the njk template files. 
 
-This should just be a temporary patch that will be resolved soon.
+Components each have thier own stylesheet since they can be used sitewide. Pages also each have their own stylesheet for specific styles to each page. These are generally fairly short since we make use of bootstrap components and our own njk components as well.
 
-#### UPDATE:
+The common folder of styles hosts any additional setup that applies sitewide, but not to a component.
 
-Custom plugin is no longer used so you can skip the above step. It is still included for now as a safety in case a regression happens.
+## Javascript
+
+We strive to keep javascript dependencies light and stable. The following explains dependencies and why they are used:
+
+  - Splide.js: Provides an accessible and performant carousel. There are many slider/carousel libraries out there, but we have found Splide to be the best for performance and accessibility.
+  - Alpine.js: This library is an extremely minimal interactive framework. It powers the resource hub of the site and excels for creating client side interactivy you would see in a React.js app, without the overhead.
+  - GSAP: There are many animation libraries out there, but GSAP consistently shines as the gold standard. We use it for any animation, motion, and scroll based interactivity.
+  - Bootstrap: This is a Bootstrap based starter and we do makes use of some of the bootstrap javascript functionality as well.
+
+Javascript is all compiled by Vite. We typically break the site's javascript into modules that are imported into the main index.js entry point. These modules will handle a single aspect, for instance the resource filtering or scroll-based animations.
+
+## Data Cascade
+
+We make use of many elements from the 11ty data cascade including global site data for things like meta tags, page specific front matter, and directory specific json files to set up front matter across many files.
+
+For large collections of data a sample CSV importer is provided in the `scripts` directory. This will allow easy conversion of CSVs to json for use within your templates.
+
+## Eleventy 3.0 Image Handling
+
+The latest version of Eleventy introduces a new recommended way to process images. Rather than creating shortcodes, the 11ty.config.js file sets up the configuration for processing any `<img>` tags automatically. You can read more about this here:
+
+https://www.11ty.dev/docs/plugins/image/#eleventy-transform

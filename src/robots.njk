@@ -1,0 +1,10 @@
+---
+permalink: /public/robots.txt
+eleventyExcludeFromCollections: true
+---
+{% if site.buildMode != "production" %}
+User-agent: *
+Disallow: /
+{% else %}
+User-agent: *
+{% endif %}

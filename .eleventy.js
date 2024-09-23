@@ -27,6 +27,7 @@ const globalSiteData = {
   title: "11ty Starter Site",
   description: "This is a basic 11ty starter template with my most commonly used features and modern tooling",
   locale: 'en',
+  metaImage: "",
   baseUrl: baseUrl,
   buildMode: buildMode
 }
@@ -58,6 +59,7 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addPassthroughCopy('src/assets/css')
 	eleventyConfig.addPassthroughCopy('src/assets/js')
+  eleventyConfig.addPassthroughCopy('src/assets/images') // maybe not needed?
   eleventyConfig.addPassthroughCopy('src/public')
 
 
@@ -145,6 +147,8 @@ module.exports = function(eleventyConfig) {
 
   // Useful "debug" filter for dumping all variable data to screen
   eleventyConfig.addFilter("debug", (content) => `<pre>${inspect(content)}</pre>`);
+
+  eleventyConfig.addFilter('toJson', JSON.stringify);
 
   // Custom Random Helper Filter (useful for ID attributes)
   eleventyConfig.addFilter("generateRandomIdString", function (prefix) {

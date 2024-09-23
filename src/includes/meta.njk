@@ -13,6 +13,8 @@
 
 {%- if meta.image -%}
 <meta property="og:image" content="{{ meta.image | url | absoluteUrl(site.baseUrl) }}">
+{%- else -%}
+<meta property="og:image" content="{{ site.metaImage | url | absoluteUrl(site.baseUrl) }}">
 {%- endif -%}
 {# End Open Graph #}
 
