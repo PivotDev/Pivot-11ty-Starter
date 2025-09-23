@@ -69,7 +69,7 @@ module.exports = async function(eleventyConfig) {
 
   eleventyConfig.addPlugin(pluginRss); // just includes absolute url helper function
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
-  eleventyConfig.addPlugin(EleventyVitePlugin, {
+  eleventyConfig.addPlugin(EleventyPluginVite, {
     viteOptions: {
       build: {
         copyPublicDir: true
