@@ -1,15 +1,21 @@
-const fs = require('fs');
-const path = require('path')
-const inspect = require("util").inspect;
+import fs from 'fs';
+import path from 'path';
+import { inspect } from 'util';
+import { fileURLToPath } from 'url';
 
-const pluginRss = require("@11ty/eleventy-plugin-rss"); // needed for absoluteUrl SEO feature
-const eleventyNavigationPlugin = require("@11ty/eleventy-navigation");
-// const EleventyVitePlugin = require("./config/custom-vite-plugin"); // CUSTOM VERSION 
-// const EleventyVitePlugin = require("@11ty/eleventy-plugin-vite");
-const { eleventyImageTransformPlugin } = require("@11ty/eleventy-img");
-const yaml = require("js-yaml"); // Because yaml is nicer than json for editors
 
-require('dotenv').config();
+import eleventyNavigationPlugin from '@11ty/eleventy-navigation';
+import EleventyVitePlugin from "@11ty/eleventy-plugin-vite";
+import { eleventyImageTransformPlugin } from '@11ty/eleventy-img';
+import YAML from "yaml";
+
+import 'dotenv/config'
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// dotenv.config();
+
 
 // Set up our globals
 const baseUrl = process.env.BASE_URL || "http://localhost:8080";
@@ -32,21 +38,8 @@ const globalSiteData = {
   buildMode: buildMode
 }
 
-// Dynamically find all shortcodes - disable if not using
-const shortcodesPath = path.resolve(__dirname, './config/shortcodes');
-const shortcodeFiles = fs.readdirSync(shortcodesPath, (err, files) => {
-  if (err) {
-    console.error('Error reading directory:', err);
-    return;
-  } else {
-    return files
-  }
-})
 
-
-module.exports = async function(eleventyConfig) {
-
-  const EleventyPluginVite = (await import("@11ty/eleventy-plugin-vite")).default;
+export default function (eleventyConfig) {
 
   /* --- GLOBAL DATA --- */
   
@@ -54,8 +47,8 @@ module.exports = async function(eleventyConfig) {
 
   /* --- YAML SUPPORT --- */
   
-  eleventyConfig.addDataExtension("yaml", contents => yaml.load(contents));
-  eleventyConfig.addDataExtension("yml", contents => yaml.load(contents));
+  eleventyConfig.addDataExtension("yaml", (contents) => YAML.parse(contents));
+  eleventyConfig.addDataExtension("yml", (contents) => YAML.parse(contents));
 
   /* --- PASSTHROUGHS --- */
 
@@ -67,9 +60,8 @@ module.exports = async function(eleventyConfig) {
 
   /* --- PLUGINS --- */
 
-  eleventyConfig.addPlugin(pluginRss); // just includes absolute url helper function
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
-  eleventyConfig.addPlugin(EleventyPluginVite, {
+  eleventyConfig.addPlugin(EleventyVitePlugin, {
     viteOptions: {
       build: {
         copyPublicDir: true
@@ -90,24 +82,6 @@ module.exports = async function(eleventyConfig) {
 
   // Output year for copyright notices
   eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
-
-  // Imported shortcodes - disable if not using
-  shortcodeFiles.forEach(file => {
-    // Check if file has .js extension
-    if (path.extname(file) === '.js') {
-      // Construct the module path
-      const modulePath = path.join(shortcodesPath, file);
-      
-      // Dynamically require the module
-      const module = require(modulePath);
-      
-      // Check if the module exports a function with the same name
-      if (typeof module === 'function') {
-        // Call the function
-        module(eleventyConfig);
-      }
-    }
-  });
 
   /* --- RESPONSIVE IMAGES --- */
 
