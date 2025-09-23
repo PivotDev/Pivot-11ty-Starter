@@ -27,6 +27,7 @@ window.ScrollSmoother = ScrollSmoother;
 gsap.registerPlugin(ScrollSmoother);
 gsap.registerPlugin(ScrollTrigger);
 
+let mm = gsap.matchMedia();
 
 const {select} = utils
 
@@ -122,4 +123,27 @@ document.addEventListener("DOMContentLoaded", function(){
 
 })
 
+// Use matchHeight for headers
+function matchHeights() {
+  if(!document.querySelector('#site-header')){
+    return
+  }
+  let root = document.documentElement;
+  // Move body down when nav is fixed - causing CLS, reconsider? 
+  const pdMain = document.querySelector('body #main');
+  //const pdMainMenuWrap = document.querySelector('.pd-main-menu-wrap');
+  const siteHeader = document.querySelector('#site-header')
 
+  //pdMain.style.paddingTop = pdMainMenuWrap.offsetHeight + 'px';
+  pdMain.style.paddingTop = siteHeader.offsetHeight + 'px';
+  root.style.setProperty('--header-offset', siteHeader.offsetHeight + 'px')
+}
+
+
+window.addEventListener('resize', utils.debounce(() => {
+  matchHeights();
+
+  if (!utils.isTouchDevice()) {
+    ScrollTrigger.refresh();
+  }
+}, 250));

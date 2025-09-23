@@ -5,7 +5,7 @@ const inspect = require("util").inspect;
 const pluginRss = require("@11ty/eleventy-plugin-rss"); // needed for absoluteUrl SEO feature
 const eleventyNavigationPlugin = require("@11ty/eleventy-navigation");
 // const EleventyVitePlugin = require("./config/custom-vite-plugin"); // CUSTOM VERSION 
-const EleventyVitePlugin = require("@11ty/eleventy-plugin-vite");
+// const EleventyVitePlugin = require("@11ty/eleventy-plugin-vite");
 const { eleventyImageTransformPlugin } = require("@11ty/eleventy-img");
 const yaml = require("js-yaml"); // Because yaml is nicer than json for editors
 
@@ -44,7 +44,9 @@ const shortcodeFiles = fs.readdirSync(shortcodesPath, (err, files) => {
 })
 
 
-module.exports = function(eleventyConfig) {
+module.exports = async function(eleventyConfig) {
+
+  const EleventyPluginVite = (await import("@11ty/eleventy-plugin-vite")).default;
 
   /* --- GLOBAL DATA --- */
   
@@ -116,7 +118,7 @@ module.exports = function(eleventyConfig) {
 		// Add any other Image utility options here:
 
 		// optional, output image formats
-		formats: ["webp", "jpeg"],
+		formats: ["webp", "jpeg", "svg"],
 		// formats: ["auto"],
 
 		// optional, output image widths
