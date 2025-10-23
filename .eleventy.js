@@ -3,11 +3,13 @@ import path from 'path';
 import { inspect } from 'util';
 import { fileURLToPath } from 'url';
 
-
+import EleventyPluginRss from '@11ty/eleventy-plugin-rss'
 import eleventyNavigationPlugin from '@11ty/eleventy-navigation';
 import EleventyVitePlugin from "@11ty/eleventy-plugin-vite";
 import { eleventyImageTransformPlugin } from '@11ty/eleventy-img';
 import YAML from "yaml";
+
+
 
 import 'dotenv/config'
 
@@ -61,8 +63,12 @@ export default function (eleventyConfig) {
   /* --- PLUGINS --- */
 
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
+  eleventyConfig.addPlugin(EleventyPluginRss)
   eleventyConfig.addPlugin(EleventyVitePlugin, {
+    tempFolderName: ".11ty-vite",
     viteOptions: {
+      appType: "mpa",
+       // Default name of the temp folder
       build: {
         copyPublicDir: true
       },
@@ -121,6 +127,8 @@ export default function (eleventyConfig) {
 
   /* --- FILTERS --- */
 
+	eleventyConfig.addShortcode('year', () => `${new Date().getFullYear()}`)
+
   // Useful "debug" filter for dumping all variable data to screen
   eleventyConfig.addFilter("debug", (content) => `<pre>${inspect(content)}</pre>`);
 
@@ -148,12 +156,13 @@ export default function (eleventyConfig) {
 
   return {
     dir: {
-      input: "./src",
-      output: "./_site",
-      includes: "includes", // this path is releative to input-path (src/)
-      layouts: "layouts", // this path is releative to input-path (src/)
-      data: "data", // this path is releative to input-path (src/)
-    },
+			input: 'src',
+			// better not use "public" as the name of the output folder (see above...)
+			output: '_site',
+			includes: '_includes',
+			layouts: 'layouts',
+			data: '_data'
+		},
     templateFormats: ["njk", "md"],
     htmlTemplateEngine: "njk",
     markdownTemplateEngine: "njk",

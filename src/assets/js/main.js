@@ -1,4 +1,4 @@
-import '../css/index.scss';
+import '../css/main.scss';
 import * as bootstrap from 'bootstrap'
 
 // GSAP
