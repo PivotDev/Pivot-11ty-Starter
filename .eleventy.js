@@ -101,6 +101,9 @@ export default function (eleventyConfig) {
 		formats: ["webp", "jpeg", "svg"],
 		// formats: ["auto"],
 
+    // This keeps SVGs sharp!
+    svgShortCircuit: true,
+
 		// optional, output image widths
 		// widths: ["auto"],
 
